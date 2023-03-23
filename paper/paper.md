@@ -1,7 +1,7 @@
 ---
 title: "`XTBTSScreener.jl` - Screening Likely Transition States with Julia and Machine Learning"
 date: "March 2023"
-author: "Burns, Jackson - MIT"
+author: "Jackson Warner Burns, _Computational Science and Engineering MIT_"
 geometry: margin=2cm
 ---
 
@@ -25,6 +25,7 @@ In almost 50% of cases, the first suggested transition state will fail to conver
 
 ![Current Transition State Search Workflow](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/paper/images/current_workflow_diagram.png){ height=125px }
 
+
 To accelerate this workflow it would be useful to be able to estimate _a-priori_ if a suggested transition state is likely to converge or not before moving it to the DFT simulation stage.
 To do this, we have collected a dataset containing many examples of expert-suggested possible transition states for reactions of interest in the chemical kinetics field.
 These structures were partially optimized using Extended Tight Binding semi-empirical quantum mechanics simulations (XTB), which is a computationally inexpensive method to arrive at a reasonable initialization.
@@ -33,6 +34,7 @@ Using the files which were input to the DFT simulation, which contain the propos
 This is shown schematically in Figure 2, which is a modification of the current common workflow.
 
 ![Proposed Enhanced Transition State Search Workflow](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/paper/images/proposed_workflow_diagram.png){ height=125px }
+
 
 This ML model will be implemented using a Neural Network (NN) in Julia.
 The Lux [@pal2022lux] package will be used to configure models and the Adam optimiser [@kingma2017adam] will be used in model training.
