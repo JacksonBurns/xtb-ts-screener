@@ -22,7 +22,7 @@ jobs:
         run: |
           sudo apt-get install pandoc pandoc-citeproc texlive-latex-extra
           cd paper
-          pandoc --filter pandoc-citeproc --bibliography=paper.bib --variable classoption=twocolumn --variable papersize=a4paper -s paper.md -o paper.pdf
+          pandoc --filter pandoc-citeproc --bibliography=paper.bib --variable classoption=portrait --variable papersize=a4paper -s paper.md -o paper.pdf
       - uses: actions/upload-artifact@v1
         with:
           name: paper
