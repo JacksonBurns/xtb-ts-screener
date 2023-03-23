@@ -2,6 +2,7 @@
 title: "`XTBTSScreener.jl` - Screening Likely Transition States with Julia and Machine Learning"
 date: "March 2023"
 author: "Burns, Jackson - MIT"
+geometry: margin=2cm
 ---
 
 # Abstract
