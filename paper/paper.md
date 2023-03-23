@@ -1,12 +1,12 @@
 ---
-title: "Your Paper Title Here"
+title: "`XTBTSScreener.jl` - Screening Likely Transition States with Julia and Machine Learning"
 date: "March 2023"
-author: "Spaghetti Monster, Flying - MIT"
+author: "Burns, Jackson - MIT"
 ---
 
 # Abstract
 
-Pizza (@pizza2000identification) is an understudied yet widely utilized implement for delivering in-vivo *Solanum lycopersicum* based liquid mediums in a variety of next-genees. Here we describe a de novo approach for large scale *T. aestivum* assemblies based on protein folding that drastically reduces the generation time of the mutation rate.
+Predicting whether or not a transition state predicted by XTB semiemperical quantum mechanics will converge when subjected to DFT optimization. Uses Lux [@pal2022lux] and ADAM. 
 
 # Diagram
 
