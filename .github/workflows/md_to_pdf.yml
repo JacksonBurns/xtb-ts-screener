@@ -14,13 +14,15 @@ on:
 
 jobs:
   converttopdf:
-    name: Build PDF
+    name: Markdown to PDF
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install Pandoc and Build
+      - name: Install Pandoc
         run: |
           sudo apt-get install pandoc pandoc-citeproc texlive-latex-extra
+      - name: Build Paper
+        run: |
           cd paper
           pandoc --filter pandoc-citeproc --bibliography=paper.bib --variable classoption=portrait --variable papersize=a4paper -s paper.md -o paper.pdf
       - uses: actions/upload-artifact@v1
