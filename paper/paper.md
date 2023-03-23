@@ -22,7 +22,7 @@ This simulation technique scales by $O(n^3)$ for $n$ electrons in the system, th
 Finally, this process must be repeated until the DFT simulation converges and a valid transition state is found.
 In almost 50% of cases, the first suggested transition state will fail to converge, effectively wasting hundreds of compute hours.
 
-![Current Transition State Search Workflow](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/paper/images/current_workflow_diagram.png){ width=250px }
+![Current Transition State Search Workflow](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/paper/images/current_workflow_diagram.png){ height=75px }
 
 To accelerate this workflow it would be useful to be able to estimate _a-priori_ if a suggested transition state is likely to converge or not before moving it to the DFT simulation stage.
 To do this, we have collected a dataset containing many examples of expert-suggested possible transition states for reactions of interest in the chemical kinetics field.
@@ -31,7 +31,7 @@ All examples were then subjected to DFT simulation, and approximately half did n
 Using the files which were input to the DFT simulation, which contain the proposed transition state structure in the form of atomic coordinates, and the convergence or non-convergence of the DFT simulation we can train a machine learning (ML) model to classify suggested transition states as "like to converge" or not.
 This is shown schematically in the diagram below, which is a modification of the current common workflow.
 
-![Proposed Enhanced Transition State Search Workflow](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/paper/images/proposed_workflow_diagram.png){ width=250px }
+![Proposed Enhanced Transition State Search Workflow](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/paper/images/proposed_workflow_diagram.png){ height=75px }
 
 This ML model will be implemented using a Neural Network (NN) in Julia.
 The Lux [@pal2022lux] package will be used to configure models and the Adam optimiser [@kingma2017adam] will be used in model training.
