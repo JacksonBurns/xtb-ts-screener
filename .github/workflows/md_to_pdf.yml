@@ -24,7 +24,7 @@ jobs:
       - name: Build Paper
         run: |
           cd paper
-          pandoc --filter pandoc-citeproc --bibliography=paper.bib --variable classoption=portrait --variable papersize=a4paper -s paper.md -o paper.pdf
+          pandoc -f markdown-implicit_figures --filter pandoc-citeproc --bibliography=paper.bib --variable classoption=portrait --variable papersize=a4paper -s paper.md -o paper.pdf
       - uses: actions/upload-artifact@v1
         with:
           name: paper
