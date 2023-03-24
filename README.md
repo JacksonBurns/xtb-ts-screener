@@ -4,7 +4,7 @@ Screening 'likely-to-converge' proposed transition states as partially optimized
 Uses Julia, Lux, and ADAM.
 
 ## Iteration 1 Notes - Machine Learning Subgroup Meeting
-Could also try XGBoost or Random Forest.
+Could also try XGBoost (done in this paper: https://rdcu.be/c8pdt) or Random Forest.
 
 Need to make goal of the model to be converge or not converge, NOT that it is valid. XTBTSScreener makes to judgement on validity, just if we will be wasting compute hours or not. This ties in better to performance engineering.
 
