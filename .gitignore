@@ -23,5 +23,8 @@ docs/site/
 # environment.
 Manifest.toml
 
-# Other Files
+# Annoying Mac File
 .DS_store
+
+# jupyter notebooks output
+.ipynb_checkpoints
