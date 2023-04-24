@@ -51,6 +51,23 @@ If initial modeling efforts are unsuccessful, a Graph Neural Network (GNN) will 
 Literature precedent from the chemical informatics field at large indicates that GNNs often perform better than typical NNs on chemical data.
 The dataset of proposed transition states partially optimized by xTB and their corresponding converged/failed label has been graciously provided for use by Haoyang Wu of the Green Group.
 
+# Results
+Following the example by Avik Pal in the Lux documentation, a Long Short Term Memory RNN was trained on the data.
+All coordinate matrices were zero-padded to a uniform length for ease of encoding, with 55 input dimensions and 6 hidden dimensions and a sigmoid activation.
+The ADAM optimiser was used with a learning rate of 0.01 and the binarycrossentropy was used for measuring loss.
+This initial modeling was unsuccessful, producing this loss/accuracy curve:
+![Initial Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/result-2023-04-23T12%3A30%3A43.862-fullrunfixedlegend.png)
+
+Accuracy decreases with increasing epochs despite a decrease in the loss function, indicating model parameters were not conducive to learning or the embedding is masking information.
+To attempt to improve performance, the learning rate was reduced to 0.0001 and the batch size was set to 2^4 from 2^6.
+
+The fact that the learning rate has minimal impact on the results indicates the embedding used initially is not informative.
+This is not entirely surprising, as this baseline model primarily is used as a baseline.
+Most modern approaches require the addition of more simulation parameters to get results.
+
+To do so, we will add the gibbs energy of each of the three optimization steps which shows change over time, the e0 zpe for each, and the number of steps required in each optimization to reach convergence (for the semiempirical simulations).
+
+
 # Acknowledgements
 The author thanks Green Group member Haoyang Wu for performing the calculations and providing the data which was used in this study.
 
