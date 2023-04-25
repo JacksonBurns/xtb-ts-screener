@@ -51,6 +51,9 @@ If initial modeling efforts are unsuccessful, a Graph Neural Network (GNN) will 
 Literature precedent from the chemical informatics field at large indicates that GNNs often perform better than typical NNs on chemical data.
 The dataset of proposed transition states partially optimized by xTB and their corresponding converged/failed label has been graciously provided for use by Haoyang Wu of the Green Group.
 
+The data used for training is parsed from a Gaussian logfile using a pre-designed Python-based parser that could stand to be rewritten in Julia.
+Initially a few hundred samples were parsed for rapid prototyping, then an initial set of 16000, followed by an additional 4000.
+
 # Results
 Following the example by Avik Pal in the Lux documentation, a Long Short Term Memory RNN was trained on the data.
 All coordinate matrices were zero-padded to a uniform length for ease of encoding, with 55 input dimensions and 6 hidden dimensions and a sigmoid activation.
@@ -66,6 +69,21 @@ This is not entirely surprising, as this baseline model primarily is used as a b
 Most modern approaches require the addition of more simulation parameters to get results.
 
 To do so, we will add the gibbs energy of each of the three optimization steps which shows change over time, the e0 zpe for each, and the number of steps required in each optimization to reach convergence (for the semiempirical simulations).
+
+
+With these additional descriptors, the model performance stays almost flat across the epochs.
+This indicates that the embedding is more meaningful but we might now be data limited.
+Additional data were retrieved from the dataset.
+
+Started by increasing the number of epochs.
+Then further reduced learning rate.
+
+
+# Future Work
+The dataset is imbalanced and should be expanded with more negative examples.
+Additional descriptors could be added.
+Graph networks could be added as well.
+Zero padding is one of the simplest approaches but not the most rigorous, could be replaced with other encodings or some variety of autoencoding scheme.
 
 
 # Acknowledgements
