@@ -1,3 +1,57 @@
+# LSTM
+@article{lstmnetworks,
+    author = {Hochreiter, Sepp and Schmidhuber, Jürgen},
+    title = "{Long Short-Term Memory}",
+    journal = {Neural Computation},
+    volume = {9},
+    number = {8},
+    pages = {1735-1780},
+    year = {1997},
+    month = {11},
+    abstract = "{Learning to store information over extended time intervals by recurrent backpropagation takes a very long time, mostly because of insufficient, decaying error backflow. We briefly review Hochreiter's (1991) analysis of this problem, then address it by introducing a novel, efficient, gradient based method called long short-term memory (LSTM). Truncating the gradient where this does not do harm, LSTM can learn to bridge minimal time lags in excess of 1000 discrete-time steps by enforcing constant error flow through constant error carousels within special units. Multiplicative gate units learn to open and close access to the constant error flow. LSTM is local in space and time; its computational complexity per time step and weight is O. 1. Our experiments with artificial data involve local, distributed, real-valued, and noisy pattern representations. In comparisons with real-time recurrent learning, back propagation through time, recurrent cascade correlation, Elman nets, and neural sequence chunking, LSTM leads to many more successful runs, and learns much faster. LSTM also solves complex, artificial long-time-lag tasks that have never been solved by previous recurrent network algorithms.}",
+    issn = {0899-7667},
+    doi = {10.1162/neco.1997.9.8.1735},
+    url = {https://doi.org/10.1162/neco.1997.9.8.1735},
+    eprint = {https://direct.mit.edu/neco/article-pdf/9/8/1735/813796/neco.1997.9.8.1735.pdf},
+}
+
+# RDB7 to justify rate constant QM interest
+@Article{Spiekermann2022,
+  author={Spiekermann, Kevin
+  and Pattanaik, Lagnajit
+  and Green, William H.},
+  title={High accuracy barrier heights, enthalpies, and rate coefficients for chemical reactions},
+  journal={Scientific Data},
+  year={2022},
+  month={Jul},
+  day={18},
+  volume={9},
+  number={1},
+  pages={417},
+  abstract={Quantitative chemical reaction data, including activation energies and reaction rates, are crucial for developing detailed kinetic mechanisms and accurately predicting reaction outcomes. However, such data are often difficult to find, and high-quality datasets are especially rare. Here, we use CCSD(T)-F12a/cc-pVDZ-F12//$\omega$B97X-D3/def2-TZVP to obtain high-quality single point calculations for nearly 22,000 unique stable species and transition states. We report the results from these quantum chemistry calculations and extract the barrier heights and reaction enthalpies to create a kinetics dataset of nearly 12,000 gas-phase reactions. These reactions involve H, C, N, and O, contain up to seven heavy atoms, and have cleaned atom-mapped SMILES. Our higher-accuracy coupled-cluster barrier heights differ significantly (RMSE of ∼5 kcal mol−1) relative to those calculated at $\omega$B97X-D3/def2-TZVP. We also report accurate transition state theory rate coefficients {\$}{\$}{\{}k{\}}{\_}{\{}{\backslash}infty {\}}(T){\$}{\$}between 300 K and 2000 K and the corresponding Arrhenius parameters for a subset of rigid reactions. We believe this data will accelerate development of automated and reliable methods for quantitative reaction prediction.},
+  issn={2052-4463},
+  doi={10.1038/s41597-022-01529-6},
+  url={https://doi.org/10.1038/s41597-022-01529-6}
+}
+
+# xTB Review
+@article{xtbreview,
+author = {Bannwarth, Christoph and Caldeweyher, Eike and Ehlert, Sebastian and Hansen, Andreas and Pracht, Philipp and Seibert, Jakob and Spicher, Sebastian and Grimme, Stefan},
+title = {Extended tight-binding quantum chemistry methods},
+journal = {WIREs Computational Molecular Science},
+volume = {11},
+number = {2},
+pages = {e1493},
+keywords = {density functional tight-binding theory, multilevel quantum chemistry, semiempirical molecular orbital theory},
+doi = {https://doi.org/10.1002/wcms.1493},
+url = {https://wires.onlinelibrary.wiley.com/doi/abs/10.1002/wcms.1493},
+eprint = {https://wires.onlinelibrary.wiley.com/doi/pdf/10.1002/wcms.1493},
+abstract = {Abstract This review covers a family of atomistic, mostly quantum chemistry (QC) based semiempirical methods for the fast and reasonably accurate description of large molecules in gas and condensed phase. The theory is derived from a density functional (DFT) perturbation expansion of the electron density in fluctuation terms to various orders similar to the original density functional tight binding model. The term “eXtended” in their name (xTB) emphasizes the parameter availability for almost the entire periodic table of elements (Z ≤ 86) and improvements of the underlying theory regarding, for example, the atomic orbital basis set, the level of multipole approximation and the treatment of the important electrostatic and dispersion interactions. A common feature of most members is their consistent parameterization on accurate gas phase theoretical reference data for geometries, vibrational frequencies and noncovalent interactions, which are the primary properties of interest in typical applications to systems composed of up to a few thousand atoms. Further specialized versions were developed for the description of electronic spectra and corresponding response properties. Besides a provided common theoretical background with some important implementation details in the efficient and free xtb program, various benchmarks for structural and thermochemical properties including (transition-)metal systems are discussed. The review is completed by recent extensions of the model to the force-field (FF) level as well as its application to solids under periodic boundary conditions. The general applicability together with the excellent cost-accuracy ratio and the high robustness make the xTB family of methods very attractive for various fields of computer-aided chemical research. This article is categorized under: Electronic Structure Theory > Ab Initio Electronic Structure Methods Electronic Structure Theory > Semiempirical Electronic Structure Methods Software > Quantum Chemistry},
+year = {2021}
+}
+
+
+
 # Lux.jl
 @misc{pal2022lux,
     author = {Pal, Avik},
