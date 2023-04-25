@@ -87,7 +87,7 @@ To establish a baseline model performance against which subsequent efforts could
 Only the atomic coordinates are provided as features, the data was _not_ downsampled, and the NN hyperparameters were left to their defaults as specified in the `Lux.jl` tutorial [@pal2022lux]: learning rate of 0.01, batch size of 128, and 25 epochs.
 This produced the loss and accuracy plot show below.
 
-![Baseline Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/result-2023-04-23T12%3A30%3A43.862-fullrunfixedlegend.png){ height=150px }
+![Baseline Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/results/result-2023-04-23-fullrunfixedlegend.png){ height=150px }
 
 Learning rate was varied from 0.01 to 0.0001, the latter of which was empirically determined to be critical for model convergence. 
 Batch sizes between 16 and 128 samples, with 64 found to be the ideal value for avoiding over-fitting while still enabling convergence in a reasonable number of epochs.
@@ -114,6 +114,8 @@ Additional data were retrieved from the dataset.
 
 Started by increasing the number of epochs.
 Then further reduced learning rate.
+
+![Final Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/results/result-2023-04-25-finalresultfixedlegend.png){ height=150px }
 
 # Conclusions
 
