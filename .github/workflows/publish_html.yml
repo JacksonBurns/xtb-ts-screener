@@ -1,0 +1,35 @@
+name: Publish Notebook as HTML
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -el {0}
+    name: Compile and Push HTML with Quarto
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+      - name: Update Docs to Main
+        run: |
+          git fetch --all
+          git reset --hard origin/main
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+      - name: Compile
+        run: |
+          quarto render src/main.ipynb --to html
+      - name: Push Changes
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Automated Quarto document update" -a || true
+          git push -f
