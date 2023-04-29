@@ -21,6 +21,7 @@ Finding transition states is substantially more difficult.
 The typical workflow for doing so is shown in Figure 1 and explained in-depth below.
 
 ![Current Transition State Search Workflow](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/paper/images/current_workflow_diagram.png){ height=125px }
+
 First, a 'guess' at the possible transition state is created.
 Creating this initialization has historically been done by hand with expert input and computationally inexpensive, but less accurate, simulation methods.
 One class of such methods which are used in this investigation are the "semi-empirical" methods which use shortcuts in solving the Hamiltonian based on experimental observations and human intuition.
@@ -43,6 +44,7 @@ By generating a dataset of proposed transition states and their failure or conve
 This is shown schematically in Figure 2.
 
 ![Proposed Enhanced Transition State Search Workflow](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/paper/images/proposed_workflow_diagram.png){ height=125px }
+
 This diagram adds a new step before proceeding to DFT simulation in which proposed transition states that are _immediately_ thought to be unlikely to converge will be rejected.
 The method by which the proposed transition state was generated would then be responsible for creating a new, better-informed guess before continuing in the loop.
 In doing so, failed DFT simulations are avoided and the loop operates faster.
@@ -89,6 +91,7 @@ Only the atomic coordinates are provided as features, the data was _not_ downsam
 This produced the loss and accuracy plot show below.
 
 ![Baseline Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/results/result-2023-04-23-fullrunfixedlegend.png){ height=225px }
+
 As epochs increase the loss continually decreases though in a noisy manner, which is not entirely unexpected for the binary cross-entropy loss function.
 Accuracy however decreases across epochs despite this decrease in the loss function, which is a product of this uninformative parameterization scheme.
 The model is randomly initialized to an accuracy of approximately 80%, which seems impressive but is actually the converse of the failure rate for the complete dataset.
@@ -100,6 +103,7 @@ These can be prepended to the atomic coordinates to arrive at an 'augmented' fea
 The results of training on such a representation are shown below.
 
 ![Augmented Features Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/results/result-2023-04-24T18-12-40-144-moredata.png){ height=225px }
+
 With these additional descriptors, the model performance stays almost flat across the epochs and losing only a few percentage of accuracy from the initialization.
 The loss curve also smooths significantly without changing the loss function.
 These changes indicate that the change in embedding was positive, but that the first issue with the baseline model must now be addressed: the hyperparameters.
@@ -113,6 +117,7 @@ This provides a more meaningful way to evaluate model performance since the base
 The accuracy and loss curve for this final configuration are shown below.
 
 ![Final Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/results/result-2023-04-25-finalresultfixedlegend.png){ height=225px }
+
 The loss curve was completely stabilized, and although the accuracy was still somewhat volatile it showed a general increase of approximately 7% over the baseline performance after only 50 epochs. While not up to production standard, this model is effectively a proof of concept for the use of LSTM with augmented embeddings.
 
 # Conclusions
