@@ -68,17 +68,20 @@ Number of simulation steps is included as a catch-all metadeta descriptor for th
 Finally, the label for each point is simply whether or not the corresponding DFT simulation converged.
 
 # Methods
-`XTBTSScreener.jl` is implemented using Julia v1.8.5.
+`XTBTSScreener.jl` is implemented using Julia v1.8.5, and all source code and results are publicly available on GitHub ([github.com/jacksonBurns/xtb-ts-screener](https://github.com/JacksonBurns/xtb-ts-screener)).
 The grander vision for `XTBTSScreener.jl` and its derivatives would be within a much larger closed-loop optimization tool, so the speed of Julia will be critical in making this approach worthwhile.
 `Lux.jl` [@pal2022lux], a low-code explicit parameterization-driven neural network package, is used to implement the model.
 Sixty input dimensions and six hidden dimensions and the sigmoid activation function were used alongside the binary cross-entropy function to quantify loss, which is limited in numerical stability but offers benefits in interpretability.
+
 The model itself is a Long Short-Term Memory recurrent neural network [@lstmnetworks], which is able to process higher-dimensional inputs like those in this study.
-The ubiquitous ADAM optimizer [@kingma2017adam] is used in model training to enable more rapid convergence.
+This modeling approach was chosen for its extensibility in the future.
+During the proposal of the transition state a sequence of atomic coordinates are generated, and it may be possible to assemble these into a 'movie' on which the RNN can be trained.
+The ubiquitous Adam optimizer [@kingma2017adam] is used in model training to enable more rapid convergence and because of its suitability for large datasets. 
 `Zygote.jl` [@Zygote.jl-2018] is also used to provide automatic differentiation capabilities for the network.
 
 To parameterize the transition states, the aforementioned parameters are concatenated into a single input array.
-Owing to the nature of chemical systems, the transition states in this dataset range in size from thirty to fifty atoms.
-To maintain a uniform encoding and preserve interpretability of feature arras, zero-padding is used.
+Owing to the nature of chemical systems, the transition states in this dataset range in size from thirty to fifty atoms, with many skewing to the larger side.
+To maintain a uniform encoding and preserve interpretability of feature arrays, zero-padding is used for transition states with fewer than fifty atoms.
 As later explained in the Future Work section, this simple encoding strategy should likely be replaced in the future with a more robust approach, but as a proof of concept it is sufficient.
 
 # Results
@@ -89,48 +92,49 @@ This produced the loss and accuracy plot show below.
 
 ![Baseline Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/results/result-2023-04-23-fullrunfixedlegend.png){ height=150px }
 
+As epochs increase the loss continually decreases though in a noisy manner, which is not entirely unexpected for the binary cross-entropy loss function.
+Accuracy however decreases across epochs despite this decrease in the loss function, which is a product of this uninformative parameterization scheme.
+The model is randomly initialized to an accuracy of approximately 80%, which seems impressive but is actually the converse of the failure rate for the complete dataset.
+These facts indicate that the network hyperparameters were not conducive to learning and/or the embedding is masking information.
+Subsequent iterations on the model start by addressing the latter.
+
+During the initial transition state proposal step, molecular descriptors other than the atomic coordinates are generated: Gibbs free energy, $E_{0}+ZPE$, and number of simulation steps (as discussed in Methods).
+These can be prepended to the atomic coordinates to arrive at an 'augmented' feature array.
+The results of training on such a representation are shown below.
+
+![Augmented Features Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/results/result-2023-04-24T18-12-40-144-moredata.png){ height=150px }
+
+With these additional descriptors, the model performance stays almost flat across the epochs and losing only a few percentage of accuracy from the initialization.
+The loss curve also smooths significantly without changing the loss function.
+These changes indicate that the change in embedding was positive, but that the first issue with the baseline model must now be addressed: the hyperparameters.
+
+Though trial and error, an ideal configuration for the network was found.
 Learning rate was varied from 0.01 to 0.0001, the latter of which was empirically determined to be critical for model convergence. 
-Batch sizes between 16 and 128 samples, with 64 found to be the ideal value for avoiding over-fitting while still enabling convergence in a reasonable number of epochs.
+Batch sizes from 16 and 128 samples were used with 64 found to be the ideal value for avoiding over-fitting while still enabling convergence in a reasonable number of epochs.
 Number of epochs was allowed to go as high as many thousands and as low as only ten, but with the above combination or parameters the loss function leveled out after only fifty epochs.
-Following the example by Avik Pal in the Lux documentation, a Long Short Term Memory RNN was trained on the data.
-All coordinate matrices were zero-padded to a uniform length for ease of encoding, with 55 input dimensions and 6 hidden dimensions and a sigmoid activation.
-The ADAM optimiser was used with a learning rate of 0.01 and the binarycrossentropy was used for measuring loss.
-This initial modeling was unsuccessful, producing this loss/accuracy curve:
-
-
-Accuracy decreases with increasing epochs despite a decrease in the loss function, indicating model parameters were not conducive to learning or the embedding is masking information.
-To attempt to improve performance, the learning rate was reduced to 0.0001 and the batch size was set to 2^4 from 2^6.
-
-The fact that the learning rate has minimal impact on the results indicates the embedding used initially is not informative.
-This is not entirely surprising, as this baseline model primarily is used as a baseline.
-Most modern approaches require the addition of more simulation parameters to get results.
-
-To do so, we will add the gibbs energy of each of the three optimization steps which shows change over time, the e0 zpe for each, and the number of steps required in each optimization to reach convergence (for the semiempirical simulations).
-
-
-With these additional descriptors, the model performance stays almost flat across the epochs.
-This indicates that the embedding is more meaningful but we might now be data limited.
-Additional data were retrieved from the dataset.
-
-Started by increasing the number of epochs.
-Then further reduced learning rate.
+Finally, the data were downsampled to reach an even balance of converged and failed samples.
+This provides a more meaningful way to evaluate model performance since the baseline of random guessing would yield a result of exactly 50% and the network can move an equal amount in either a positive or negative manner.
+The accuracy and loss curve for this final configuration are shown below.
 
 ![Final Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/results/result-2023-04-25-finalresultfixedlegend.png){ height=150px }
 
+The loss curve was completely stabilized, and although the accuracy was still somewhat volatile it showed a general increase of approximately 7% over the baseline performance after only 50 epochs. While not up to production standard, this model is effectively a proof of concept for the use of LSTM with augmented embeddings.
+
 # Conclusions
+Using Julia and the `Lux.jl` package, a Recurrent Long Short-Term Memory Neural Network was trained on a set of proposed reaction transition states to predict if converge.
+The embedding for the transition states was derived from easily retrieved descriptors that promises excellent scalability.
+The model achieved a 7% increased performance over baseline, which is not itself production ready but is evidence that this computationally inexpensive approach to screening could potentially be added to the discovery pipeline to streamline future studies.
 
 # Future Work
-The dataset is imbalanced and should be expanded with more negative examples.
-Additional descriptors could be added.
-Graph networks could be added as well.
-Zero padding is one of the simplest approaches but not the most rigorous, could be replaced with other encodings or some variety of autoencoding scheme.
-If initial modeling efforts are unsuccessful, a Graph Neural Network (GNN) will be used via `GraphNeuralNetworks.jl` [@Lucibello2021GNN].
-Literature precedent from the chemical informatics field at large indicates that GNNs often perform better than typical NNs on chemical data.
+First and foremost, the dataset should be expanded with a focus on negative examples to alleviate the imbalance issue.
+The embedding should also be further augmented with information that can be retrieved from the transition state proposal step, such as the absolute energies or vibrational frequencies.
+Such improvements would still requires zero padding, and although it is one of the simplest approaches it could be replaced with an autoencoding scheme instead.
+Alternative architectures should also be evaluated, particularly the Graph Neural Network (GNN) such as those in `GraphNeuralNetworks.jl` [@Lucibello2021GNN].
+Literature precedent from the chemical informatics field at large indicates that GNNs often perform better than typical NNs on chemical data, and improvements made in these fields may also be applicable here.
 
 # Acknowledgements
 The author thanks Green Group member Haoyang Wu for performing the calculations and providing the data which was used in this study.
 
 The author acknowledges the MIT SuperCloud and Lincoln Laboratory Supercomputing Center for providing HPC resources that have contributed to the generation of this dataset and training of `XTBTSScreener.jl` [@reuther2018interactive].
-
 
 # References
