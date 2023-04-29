@@ -90,7 +90,7 @@ To establish a baseline model performance against which subsequent efforts could
 Only the atomic coordinates are provided as features, the data was _not_ downsampled, and the NN hyperparameters were left to their defaults as specified in the `Lux.jl` tutorial [@pal2022lux]: learning rate of 0.01, batch size of 128, and 25 epochs.
 This produced the loss and accuracy plot show below.
 
-![Baseline Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/results/result-2023-04-23-fullrunfixedlegend.png){ height=150px }
+![Baseline Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/results/result-2023-04-23-fullrunfixedlegend.png){ height=225px }
 
 As epochs increase the loss continually decreases though in a noisy manner, which is not entirely unexpected for the binary cross-entropy loss function.
 Accuracy however decreases across epochs despite this decrease in the loss function, which is a product of this uninformative parameterization scheme.
@@ -102,7 +102,7 @@ During the initial transition state proposal step, molecular descriptors other t
 These can be prepended to the atomic coordinates to arrive at an 'augmented' feature array.
 The results of training on such a representation are shown below.
 
-![Augmented Features Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/results/result-2023-04-24T18-12-40-144-moredata.png){ height=150px }
+![Augmented Features Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/results/result-2023-04-24T18-12-40-144-moredata.png){ height=225px }
 
 With these additional descriptors, the model performance stays almost flat across the epochs and losing only a few percentage of accuracy from the initialization.
 The loss curve also smooths significantly without changing the loss function.
@@ -116,7 +116,7 @@ Finally, the data were downsampled to reach an even balance of converged and fai
 This provides a more meaningful way to evaluate model performance since the baseline of random guessing would yield a result of exactly 50% and the network can move an equal amount in either a positive or negative manner.
 The accuracy and loss curve for this final configuration are shown below.
 
-![Final Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/results/result-2023-04-25-finalresultfixedlegend.png){ height=150px }
+![Final Modeling Results](https://raw.githubusercontent.com/JacksonBurns/xtb-ts-screener/main/src/results/result-2023-04-25-finalresultfixedlegend.png){ height=225px }
 
 The loss curve was completely stabilized, and although the accuracy was still somewhat volatile it showed a general increase of approximately 7% over the baseline performance after only 50 epochs. While not up to production standard, this model is effectively a proof of concept for the use of LSTM with augmented embeddings.
 
