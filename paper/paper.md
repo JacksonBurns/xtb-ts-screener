@@ -2,7 +2,7 @@
 title: "`XTBTSScreener.jl` - Saving CPU Cycles with Julia and Machine Learning"
 date: "April 2023"
 author: "Jackson Warner Burns _Computational Science and Engineering, MIT_"
-geometry: margin=2cm
+geometry: margin=4cm
 ---
 
 # Abstract
